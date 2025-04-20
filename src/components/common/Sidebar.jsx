@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   FiUsers,
@@ -7,7 +6,7 @@ import {
   FiCalendar,
   FiLogOut,
   FiMenu,
-  FiSearch
+  FiSearch,
 } from "react-icons/fi";
 import "./Sidebar.css";
 
@@ -43,17 +42,18 @@ const Sidebar = ({ activeTab, setActiveTab, onLogoutClick }) => {
   };
 
   return (
-   
     <aside className={`sidebar ${isOpen ? "open" : ""}`}>
       <div className="logo-container">
         <div className="logo-icon"></div>
         <span className="logo-text">LOGO</span>
       </div>
 
-      {<div className="search-box">
-        <FiSearch className="search-icon" />
-        <input  placeholder="Search" />
-      </div> }
+      {
+        <div className="search-box">
+          <FiSearch className="search-icon" />
+          <input placeholder="Search" />
+        </div>
+      }
 
       {sections.map((section) => (
         <div key={section.title} className="section-container">
@@ -75,10 +75,7 @@ const Sidebar = ({ activeTab, setActiveTab, onLogoutClick }) => {
         </div>
       ))}
     </aside>
-   
   );
 };
 
 export default Sidebar;
-
-

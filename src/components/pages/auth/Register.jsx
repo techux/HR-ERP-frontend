@@ -1,182 +1,59 @@
-// import React from 'react';
-// import './register.css';
-// import onboardingImage from '../assets/Frame 29'
-
-// const UserRegistration = () => {
-//   return (
-//     <div className="user-registration">
-//       <div className="frame-31">
-//         {/* Onboarding Section */}
-//         <div className="onboarding">
-//           <div className="rectangle-50"></div>
-//           <div className="frame-29">
-//             <img 
-//               className="rectangle-77" 
-//             src= {onboardingImage} 
-//               alt="Onboarding Illustration" 
-//             />
-//             <div className="text">
-//               <div className="lorem-ipsum">
-//                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-//               </div>
-//               <div className="tempor-incididunt">
-//                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-//                 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-//                 ea commodo consequat.
-//               </div>
-//             </div>
-//             <div className="scroll">
-//               <div className="ellipse-27"></div>
-//               <div className="ellipse-28"></div>
-//               <div className="ellipse-29"></div>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Registration Form Section */}
-//         <div className="user-registration-form">
-//           <div className="rectangle-49"></div>
-//           <div className="content">
-//             <h1 className="welcome-to-dashboard">Welcome to Dashboard</h1>
-            
-//             <div className="frame-9">
-//               {/* Full Name Field */}
-//               <div className="form-field">
-//                 <label className="field-label">
-//                   <span>Full name</span>
-//                   <span className="required">*</span>
-//                 </label>
-//                 <div className="input-field">
-//                   <input type="text" placeholder="Full name" />
-//                 </div>
-//               </div>
-
-//               {/* Email Field */}
-//               <div className="form-field">
-//                 <label className="field-label">
-//                   <span>Email Address</span>
-//                   <span className="required">*</span>
-//                 </label>
-//                 <div className="input-field">
-//                   <input type="email" placeholder="Email Address" />
-//                 </div>
-//               </div>
-
-//               {/* Password Field */}
-//               <div className="form-field">
-//                 <label className="field-label">
-//                   <span>Password</span>
-//                   <span className="required">*</span>
-//                 </label>
-//                 <div className="input-field password-field">
-//                   <input type="password" placeholder="Password" />
-//                   <button className="toggle-password">
-//                     <img src="/assets/icon-eye.svg" alt="Toggle password visibility" />
-//                   </button>
-//                 </div>
-//               </div>
-
-//               {/* Confirm Password Field */}
-//               <div className="form-field">
-//                 <label className="field-label">
-//                   <span>Confirm Password</span>
-//                   <span className="required">*</span>
-//                 </label>
-//                 <div className="input-field password-field">
-//                   <input type="password" placeholder="Confirm Password" />
-//                   <button className="toggle-password">
-//                     <img src="/assets/icon-eye.svg" alt="Toggle password visibility" />
-//                   </button>
-//                 </div>
-//               </div>
-//             </div>
-
-//             <button className="register-button">
-//               <span>Register</span>
-//             </button>
-
-//             <p className="login-link">
-//               Already have an account? <a href="/login">Login</a>
-//             </p>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Logo */}
-//       <div className="logo">
-//         <div className="rectangle-2"></div>
-//         <div className="logo-text">LOGO</div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default UserRegistration;
-
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './auth.css';
-import onboardingImage from '../../../assets/image1.png'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./auth.css";
+import onboardingImage from "../../../assets/image1.png";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log('Registration data:', formData);
-
-  //   // After successful registration
-  //   navigate('/login');
-  // };
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (formData.password !== formData.confirmPassword) {
-    alert('Passwords do not match!');
-    return;
-  }
-
-  try {
-    const response = await fetch(`${baseUrl}/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: formData.fullName,
-        email: formData.email,
-        password: formData.password,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Registration failed');
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
     }
 
-    const data = await response.json();
-    console.log('Registration successful:', data);
+    try {
+      const response = await fetch(`${baseUrl}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-    // Navigate to login page after successful registration
-    navigate('/login');
-  } catch (error) {
-    console.error('Error during registration:', error);
-    alert('Registration failed. Please try again.');
-  }
-};
+      if (!response.ok) {
+        throw new Error("Registration failed");
+      }
+
+      const data = await response.json();
+      console.log("Registration successful:", data);
+
+      // Navigate to login page after successful registration
+      navigate("/login");
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("Registration failed. Please try again.");
+    }
+  };
 
   return (
     <div className="auth-container">
@@ -185,10 +62,17 @@ const handleSubmit = async (e) => {
         <div className="auth-onboarding">
           <div className="onboarding-background"></div>
           <div className="onboarding-content">
-            <img src={onboardingImage} alt="Onboarding" className="onboarding-image" />
+            <img
+              src={onboardingImage}
+              alt="Onboarding"
+              className="onboarding-image"
+            />
             <div className="onboarding-text">
               <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3>
-              <p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+              <p>
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                minim veniam
+              </p>
             </div>
             <div className="scroll-indicator">
               <span className="active"></span>
@@ -202,10 +86,12 @@ const handleSubmit = async (e) => {
         <div className="auth-form-section">
           <div className="form-container">
             <h2>Welcome to Dashboard</h2>
-            
+
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Full Name <span className="required">*</span></label>
+                <label>
+                  Full Name <span className="required">*</span>
+                </label>
                 <input
                   type="text"
                   name="fullName"
@@ -217,7 +103,9 @@ const handleSubmit = async (e) => {
               </div>
 
               <div className="form-group">
-                <label>Email Address <span className="required">*</span></label>
+                <label>
+                  Email Address <span className="required">*</span>
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -229,7 +117,9 @@ const handleSubmit = async (e) => {
               </div>
 
               <div className="form-group">
-                <label>Password <span className="required">*</span></label>
+                <label>
+                  Password <span className="required">*</span>
+                </label>
                 <div className="password-input">
                   <input
                     type="password"
@@ -246,7 +136,9 @@ const handleSubmit = async (e) => {
               </div>
 
               <div className="form-group">
-                <label>Confirm Password <span className="required">*</span></label>
+                <label>
+                  Confirm Password <span className="required">*</span>
+                </label>
                 <div className="password-input">
                   <input
                     type="password"
@@ -267,7 +159,10 @@ const handleSubmit = async (e) => {
               </button>
 
               <p className="auth-switch">
-                Already have an account? <button type="button" onClick={() => navigate('/login')}>Login</button>
+                Already have an account?{" "}
+                <button type="button" onClick={() => navigate("/login")}>
+                  Login
+                </button>
               </p>
             </form>
           </div>

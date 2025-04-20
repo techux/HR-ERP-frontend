@@ -123,25 +123,6 @@ const AddLeaveModal = ({ isOpen, onClose, onSave }) => {
               </div>
             </div>
 
-
-
-
-            {/* <div className="file-input">
-              <input
-                type="file"
-                id="resume"
-                name="resume"
-                onChange={handleChange}
-                required
-                className="hidden-file-input"
-              />
-              <div className="file-input-label">
-                <span>{formData.documents ? formData.documents.name : ""}</span>
-                <UploadIcon />
-              </div>
-              </div>
-            </div> */}
-
           <div className="form-row">
             <div className="form-group full-width">
               <input

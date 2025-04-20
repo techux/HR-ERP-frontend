@@ -13,7 +13,6 @@ const LeaveManager = () => {
   const [statusFilter, setStatusFilter] = useState("Status");
   
   
-  // Dummy data for the leaves table
   const [leaveData, setLeaveData] = useState([
     {
       id: 1,
